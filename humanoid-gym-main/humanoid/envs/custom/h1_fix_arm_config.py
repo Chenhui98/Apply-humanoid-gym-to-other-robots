@@ -87,7 +87,7 @@ class H1_fix_arm_Cfg(LeggedRobotCfg):
 
     class noise:
         add_noise = True
-        noise_level = 0.6 #0.65 #0.6    # scales other values
+        noise_level = 0.64 #0.6    # scales other values
 
         class noise_scales:
             dof_pos = 0.05 #0.05
@@ -98,20 +98,20 @@ class H1_fix_arm_Cfg(LeggedRobotCfg):
             height_measurements = 0.1   #0.1
 
     class init_state(LeggedRobotCfg.init_state):
-        pos = [0.0, 0.0, 1.01]
+        pos = [0.0, 0.0, 1]
 
         default_joint_angles = {  # = target angles [rad] when action = 0.0
             'left_hip_yaw_joint': 0.0,
             'left_hip_roll_joint': 0.,
-            'left_hip_pitch_joint': -0.349,
-            'left_knee_joint': 0.698,
-            'left_ankle_joint': -0.349,
+            'left_hip_pitch_joint': -0.47,
+            'left_knee_joint': 0.95,
+            'left_ankle_joint': -0.439,
 
             'right_hip_yaw_joint': -0.0,
             'right_hip_roll_joint': -0.,
-            'right_hip_pitch_joint': -0.349,
-            'right_knee_joint': 0.698,
-            'right_ankle_joint': -0.349,
+            'right_hip_pitch_joint': -0.47,
+            'right_knee_joint': 0.95,
+            'right_ankle_joint': -0.439,
         }
 
     class control(LeggedRobotCfg.control):
@@ -187,26 +187,26 @@ class H1_fix_arm_Cfg(LeggedRobotCfg):
             heading = [-3.14, 3.14]
 
     class rewards:
-        base_height_target = 1 #0.89
+        base_height_target = 0.96 #1 #0.89
         min_dist = 0.3 #0.2
         max_dist = 0.6  #0.5
         # put some settings here for LLM parameter tuning
-        target_joint_pos_scale = 0.2    #0.17   # rad
+        target_joint_pos_scale = 0.17    #0.17   # rad
         target_feet_height = 0.06        # m
         cycle_time = 0.64                # sec
         # if true negative total rewards are clipped at zero (avoids early termination problems)
         only_positive_rewards = True
         # tracking reward = exp(error*sigma)
         tracking_sigma = 5
-        max_contact_force = 700 #700  # Forces above this value are penalized
+        max_contact_force = 1000 #700  # Forces above this value are penalized
 
         class scales:
             # reference motion tracking
             joint_pos = 1.6
-            feet_clearance = 1.
+            feet_clearance = 1.1 #1.
             feet_contact_number = 1.2
             # gait
-            feet_air_time = 1.
+            feet_air_time = 1.1 #1.
             foot_slip = -0.05
             feet_distance = 0.2
             knee_distance = 0.2
